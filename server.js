@@ -50,6 +50,14 @@ app.get('/api/calculation', function(req, res) {///////////////////////////
 
 require("./routes/auth.route")(app);
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '/dist')));
+
+// send back React's index.html file.
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/dist/index.html'));
+});
+
 // set port, listen for requests
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
